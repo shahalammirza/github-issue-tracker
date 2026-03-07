@@ -24,12 +24,89 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    
-    
+<body class="bg-[#F8FAFC]">
+    <!-- header area -->
+    <header class="bg-white shadow-md py-5">
+        <div class="max-w-[1440px] mx-auto">
+            <nav class="flex justify-between items-center">
+                <div class="nav_left">
+                    <a href="#" class="flex items-center gap-[4px]">
+                        <img src="assets/github-logo.png" class="w-[36px]" alt="">
+                        <span class="text-[#1F2937] text-[24px] font-semibold">GitHub Issues Tracker</span>
+                    </a>
+                </div>
+                <div class="nav_right">
+                    <div class="join gap-[16px]">
+                        <div>
+                            <label class="input validator join-item h-[44px] focus: outline-none shadow-none border-[#E4E4E7]">
+                                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <g
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="2.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    >
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                    </g>
+                                </svg>
+                                <input type="text" placeholder="Search issues..." required />
+                            </label>
+                        </div>
+                        <button class="btn text-[16px] font-semibold bg-[#4A00FF] py-[11px] px-[16px] gap-[4px] h-[44px] text-[#fff] rounded-[4px] flex items-center join-item "><i class="fa-solid fa-plus"></i> New Issue</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- main area start -->
+    <main>
+        <!-- section tab btn -->
+        <section class="mt-[60px]">
+            <div class="max-w-[1110px] mx-auto">
+                <div class="bg-white p-[24px] rounded-lg flex justify-between items-center shadow-sm">
+                    <div class="tab_btn_wrap flex gap-2">
+                        <button onclick="activeBtnFunc('all_btn')" id="all_btn" class="w-[120px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">All</button>
+                        <button onclick="activeBtnFunc('open_btn')" id="open_btn" class="w-[120px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">Open</button>
+                        <button onclick="activeBtnFunc('close_btn')" id="close_btn" class="w-[120px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">Closed</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- issue count section -->
+        <section class="mt-[16px]">
+            <div class="max-w-[1110px] mx-auto shadow-sm">
+                <div class="top_issue bg-white p-[24px] rounded-lg flex justify-between items-center">
+                    <div class="issue_left flex items-center gap-2">
+                        <div class="issue_count_img h-[50px] w-[50px] bg-[#ECE4FF] rounded-full flex items-center justify-center">
+                            <img class="w-[27px]" src="assets/Aperture.png" alt="">
+                        </div>
+                        <div class="issue_count_text">
+                            <h2 class="text-[20px] font-semibold  text-[#1F2937]">50 Issues</h2>
+                            <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
+                        </div>
+                    </div>
+                    <div class="issue_right flex gap-4">
+                        <div class="flex items-center gap-[8px]">
+                            <span class="inline-block h-[12px] w-[12px] rounded-full bg-[#00A96E]"></span>
+                            <p class="text-[16px] text-[#1F2937] font-medium">Open</p>
+                        </div>
+                        <div class="flex items-center gap-[8px]">
+                            <span class="inline-block h-[12px] w-[12px] rounded-full bg-[#A855F7]"></span>
+                            <p class="text-[16px] text-[#1F2937] font-medium">Closed</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- issue card area -->
+            </div>
+        </section>
+    </main>
+
 
 
     <!-- javascript Links -->
-    <script src="js/login.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
