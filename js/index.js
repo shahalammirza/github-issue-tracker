@@ -3,9 +3,16 @@ const allBtn = document.getElementById('all_btn')
 const openBtn = document.getElementById('open_btn')
 const closeBtn = document.getElementById('close_btn')
 
-
 // step 2 catch the card container id
 const cardContainer = document.getElementById('cardContainer');
+
+
+// step 3 all cards array
+let allIssues = []
+let openIssues = []
+let closedIssues = []
+let cardCount = document.getElementById('card_Count')
+
 
 const activeBtnFunc = (id)=>{
     allBtn.classList.remove('text-white', 'bg-[#4A00FF]');
@@ -18,8 +25,17 @@ const activeBtnFunc = (id)=>{
 
     const selectBtn = document.getElementById(id);
     selectBtn.classList.add('text-white', 'bg-[#4A00FF]');
+
+    if(id === "all_btn"){
+        displayAllCards(allIssues)
+    }else if(id === "open_btn"){
+        displayAllCards(openIssues)
+    }
+    else if(id === "close_btn"){
+        displayAllCards(closedIssues)
+    }
 }
-activeBtnFunc('all_btn')
+
 
 
 // step2 all cards catching fetch
@@ -28,22 +44,39 @@ const loadCards = async()=>{
     const data = await res.json();
     const allCardsItem = data.data;
     displayAllCards(allCardsItem);
+
+    allIssues = allCardsItem;
+
+    openIssuesFunc()
+    closedIssuesFunc()
+
+    activeBtnFunc('all_btn');
 }
 
 // step2 display all card functionality
 const displayAllCards = (items)=>{
+    let borderColor;
     cardContainer.innerHTML = ""
 
     items.forEach((item)=>{
+
+        // adding border color with depending there status
+        if(item.status === 'open'){
+            borderColor = 'border-[#00A96E]'
+        }else if(item.status === 'closed'){
+            borderColor = 'border-[#A855F7]'
+        }
+
+        // creating all cards
         const cardWrap = document.createElement('div')
-        cardWrap.className = 'card_wrap bg-white shadow-sm rounded-[4px] border-t-4 border-[#00A96E] overflow-hidden';
+        cardWrap.className = `card_wrap bg-white shadow-sm rounded-[4px] border-t-4 ${borderColor} overflow-hidden`;
         cardWrap.innerHTML = `
             <div class="card_wrap_top p-[16px]">
                 <div class="card_top flex justify-between items-center">
                     <div class="h-[24px] w-[24px] rounded-full bg-[#CBFADB] flex justify-center items-center">
                         <img src="assets/Open-Status.png" alt="">
                     </div>
-                    <p id="status" class="w-[80px] h-[24px] rounded-3xl bg-[#FEECEC] uppercase flex justify-center items-center text-[#EF4444]">${item.priority}</p>
+                    <p class="w-[80px] h-[24px] rounded-3xl bg-[#FEECEC] uppercase flex justify-center items-center text-[#EF4444]">${item.priority}</p>
                 </div>
                 <div class="card_content">
                     <h2 class="text-[14px] text-[#1F2937] font-semibold pt-[12px]">${item.title}</h2>
@@ -63,6 +96,22 @@ const displayAllCards = (items)=>{
         // console.log(item)
         cardContainer.append(cardWrap)
     })
+
+    // step3 counting cards number in different tab
+   let cardNumber = cardContainer.children.length;
+   cardCount.innerText = cardNumber;
 }
-// displayAllCards()
+
+// step3 filtering cards with there status and assign in the array
+const openIssuesFunc = ()=>{
+    const openIssueItems = allIssues.filter((item) => item.status === "open")
+    openIssues = openIssueItems;  
+}
+
+const closedIssuesFunc = ()=>{
+    const closedIssueItems = allIssues.filter((item) => item.status === "closed")
+    closedIssues = closedIssueItems;
+}
+
 loadCards()
+
