@@ -53,9 +53,6 @@ const hideLoading = ()=>{
     spinner.classList.add('hidden')
 }
 
-
-
-
 // step2 all cards catching fetch
 const loadCards = async()=>{
     showLoading();
@@ -150,6 +147,20 @@ const closedIssuesFunc = ()=>{
     const closedIssueItems = allIssues.filter((item) => item.status === "closed")
     closedIssues = closedIssueItems;
 }
+
+// step 6 search function
+document.getElementById('search_btn').addEventListener('click', ()=>{
+    const searchInput = document.getElementById('search_input');
+    const searchValue = searchInput.value.trim().toLocaleLowerCase();
+    
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+    .then((res) => res.json())
+    .then((data) => {
+        const allData = data.data;
+        const filterData = allData.filter((word) => word.title.toLocaleLowerCase().includes(searchValue))
+        displayAllCards(filterData)
+    })
+})
 
 loadCards()
 
