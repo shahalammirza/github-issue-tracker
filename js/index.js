@@ -1,3 +1,6 @@
+
+
+
 // step 1 active button functionality
 const allBtn = document.getElementById('all_btn')
 const openBtn = document.getElementById('open_btn')
@@ -13,7 +16,7 @@ let openIssues = []
 let closedIssues = []
 let cardCount = document.getElementById('card_Count')
 
-
+// step 1
 const activeBtnFunc = (id)=>{
     allBtn.classList.remove('text-white', 'bg-[#4A00FF]');
     openBtn.classList.remove('text-white', 'bg-[#4A00FF]');
@@ -74,7 +77,8 @@ const displayAllCards = (items)=>{
             <div class="card_wrap_top p-[16px]">
                 <div class="card_top flex justify-between items-center">
                     <div class="h-[24px] w-[24px] rounded-full bg-[#CBFADB] flex justify-center items-center">
-                        <img src="assets/Open-Status.png" alt="">
+                        ${item.status === 'open' ? '<img src="assets/Open-Status.png" alt="">': '<img src="assets/close.png" alt="">'}
+                        
                     </div>
                     <p class="w-[80px] h-[24px] rounded-3xl bg-[#FEECEC] uppercase flex justify-center items-center text-[#EF4444]">${item.priority}</p>
                 </div>
@@ -82,9 +86,8 @@ const displayAllCards = (items)=>{
                     <h2 class="text-[14px] text-[#1F2937] font-semibold pt-[12px]">${item.title}</h2>
                     <p class="text-[12px] text-[#64748B] pt-[8px]">${item.description}</p>
                 </div>
-                <div class="label_box flex items-center gap-[4px] pt-[12px]">
-                    <p class="uppercase text-[12px] font-medium text-[#EF4444] py-[6px] px-[8px] rounded-3xl border border-[#FECACA] bg-[#FEECEC] inline-block"><i class="fa-solid fa-bug"></i> Bug</p>
-                    <p class="uppercase text-[12px] font-medium text-[#D97706] py-[6px] px-[8px] rounded-3xl border border-[#FDE68A] bg-[#FFF8DB] inline-block"><i class="fa-solid fa-life-ring"></i> help wanted</p>
+                <div class="label_box flex flex-wrap items-center gap-[4px] pt-[12px]">
+                    ${createElementsLabel(item.labels)}
                 </div>
             </div>
             <div class="card_wrap_bottom p-[16px] border-t border-[#E4E4E7] space-y-[8px]">
@@ -100,6 +103,22 @@ const displayAllCards = (items)=>{
     // step3 counting cards number in different tab
    let cardNumber = cardContainer.children.length;
    cardCount.innerText = cardNumber;
+}
+
+// step 4 create function for level
+const createElementsLabel = (arr)=>{
+    const createElementLabel = arr.map((el,index) =>{
+        return `<p class="${index % 2 === 0 
+            ? 'uppercase text-[12px] font-medium text-[#D97706] py-[6px] px-[8px] rounded-3xl border border-[#FDE68A] bg-[#FFF8DB] inline-block' 
+            : 'uppercase text-[12px] font-medium text-[#EF4444] py-[6px] px-[8px] rounded-3xl border border-[#FECACA] bg-[#FEECEC] inline-block'}">
+
+            ${index % 2 === 0 
+                ? '<i class="fa-solid fa-bug"></i>' 
+                : '<i class="fa-solid fa-life-ring"></i>' }
+            ${el}
+        </p>`
+    })
+    return(createElementLabel.join(" "))
 }
 
 // step3 filtering cards with there status and assign in the array
