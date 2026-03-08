@@ -2,6 +2,9 @@
 // step 5 spinner id
 const spinner = document.getElementById('spinner');
 
+// step 7 catch the modal id
+const cardModal = document.getElementById('card_modal')
+
 // step 1 active button functionality
 const allBtn = document.getElementById('all_btn')
 const openBtn = document.getElementById('open_btn')
@@ -87,6 +90,7 @@ const displayAllCards = (items)=>{
 
         // creating all cards
         const cardWrap = document.createElement('div')
+        cardWrap.setAttribute("onclick", `openCardModal(${item.id})`)
         cardWrap.className = `card_wrap bg-white shadow-sm rounded-[4px] border-t-4 ${borderColor} overflow-hidden`;
         cardWrap.innerHTML = `
             <div class="card_wrap_top p-[16px]">
@@ -161,6 +165,48 @@ document.getElementById('search_btn').addEventListener('click', ()=>{
         displayAllCards(filterData)
     })
 })
+
+// step 7 modal display
+const openCardModal = async(cardId)=>{
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${cardId}`);
+    const data = await res.json()
+    const modalData = data.data;
+    cardModal.innerHTML = `
+        <div class="modal-box max-w-[700px] p-[32px] ">
+            <h2 class="text-[24px] font-bold text-[#1F2937] pb-[8px]">${modalData.title}</h2>
+            <div class="personbox flex items-center mb-[24px]">
+                <div class="badge mr-[6px] rounded-3xl bg-[#00A96E] text-[12px] font-medium text-[#fff]">${modalData.status}</div>
+                <p class="flex items-center text-[12px] text-[#64748B] gap-[6px]">
+                    <span class="text-[5px]"><i class="fa-solid fa-circle"></i></span> 
+                    <span>Opened by ${modalData.author}</span> 
+                    <span class="text-[5px]"><i class="fa-solid fa-circle"></i></span> 
+                    <span>22/02/2026</span>
+                </p>
+            </div>
+            <div>
+                ${createElementsLabel(modalData.labels)}
+            </div>
+            <p class="text-[16px] text-[#64748B] mt-[24px]">${modalData.description}</p>
+            <div class="flex bg-[#F8FAFC] p-[16px] rounded-[8px] mt-[24px]">
+                <div class="author_left w-full max-w-[297px]">
+                    <p class="text-[16px] text-[#64748B]">Assignee:</p>
+                    <p class="text-[#1F2937] text-[16px] font-semibold">${modalData.author}</p>
+                </div>
+                <div class="author_right">
+                    <p class="text-[16px] text-[#64748B]">Priority:</p>
+                    <div class="badge bg-[#EF4444] rounded-3xl text-white">${modalData.priority}</div>
+                </div>
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn bg-[#4A00FF] rounded-md text-white text-[16px] font-semibold outline-none">Close</button>
+                </form>
+            </div>
+        </div>
+    `
+    cardModal.showModal()
+}
 
 loadCards()
 
