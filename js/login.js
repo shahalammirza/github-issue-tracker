@@ -11,7 +11,7 @@ document.getElementById('loginbtn').addEventListener('click', (event)=>{
    
     if(catchUserName === 'admin' && catchPassword === 'admin123'){
         alert("Login Successfully");
-        window.location.assign('index.html')
+        window.location.assign('home.html')
     }else{
         alert("Invalid username and password")
         return

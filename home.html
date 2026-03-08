@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Home Page</title>
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="assets/github-logo.png" type="image/x-icon">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google fonts links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- font awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- daisyUI and Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#F8FAFC]">
+    <!-- header area -->
+    <header class="bg-white shadow-md py-5">
+        <div class="max-w-[1440px] mx-auto">
+            <nav class="flex justify-between flex-wrap md:flex-nowrap items-center px-[20px]">
+                <div class="nav_left mb-[25px] flex justify-center md:inline-block mb-[0] w-full">
+                    <a href="#" class="flex items-center gap-[4px]">
+                        <img src="assets/github-logo.png" class="w-[36px]" alt="">
+                        <span class="text-[#1F2937] text-[24px] font-semibold">GitHub Issues Tracker</span>
+                    </a>
+                </div>
+                <div class="nav_right w-full flex justify-center md:justify-end">
+                    <div class="join gap-[16px]">
+                        <div>
+                            <label class="input validator join-item h-[44px] focus: outline-none shadow-none border-[#E4E4E7]">
+                                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <g
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="2.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    >
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                    </g>
+                                </svg>
+                                <input id="search_input" type="text" placeholder="Search issues..." required />
+                            </label>
+                        </div>
+                        <button id="search_btn" class="btn text-[16px] font-semibold bg-[#4A00FF] py-[11px] px-[16px] gap-[4px] h-[44px] text-[#fff] rounded-[4px] flex items-center join-item "><i class="fa-solid fa-plus"></i> New Issue</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- main area start -->
+    <main>
+        <!-- section tab btn -->
+        <section class="mt-[25px] md:mt-[60px]">
+            <div class="max-w-[1110px] mx-auto">
+                <div class="bg-white p-[24px] rounded-lg flex justify-between items-center shadow-sm">
+                    <div class="tab_btn_wrap flex gap-2">
+                        <button onclick="activeBtnFunc('all_btn')" id="all_btn" class="md:w-[120px] w-[90px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">All</button>
+                        <button onclick="activeBtnFunc('open_btn')" id="open_btn" class="md:w-[120px] w-[90px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">Open</button>
+                        <button onclick="activeBtnFunc('close_btn')" id="close_btn" class="md:w-[120px] w-[90px] h-[40px] rounded-[4px] cursor-pointer text-[16px] text-[#64748B] font-medium border border-[#E4E4E7]">Closed</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- issue count section -->
+        <section class="mt-[16px]">
+            <div class="max-w-[1110px] mx-auto shadow-sm">
+                <div class="top_issue bg-white p-[24px] rounded-lg flex justify-between items-center flex-wrap md:flex-nowrap">
+                    <div class="issue_left flex items-center gap-2">
+                        <div class="issue_count_img h-[50px] w-[50px] bg-[#ECE4FF] rounded-full flex items-center justify-center">
+                            <img class="w-[27px]" src="assets/Aperture.png" alt="">
+                        </div>
+                        <div class="issue_count_text">
+                            <h2 class="text-[20px] font-semibold  text-[#1F2937]"><span id="card_Count">50</span> Issues</h2>
+                            <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
+                        </div>
+                    </div>
+                    <div class="issue_right flex gap-4 mt-[15px] md:mt-[0]">
+                        <div class="flex items-center gap-[8px]">
+                            <span class="inline-block h-[12px] w-[12px] rounded-full bg-[#00A96E]"></span>
+                            <p class="text-[16px] text-[#1F2937] font-medium">Open</p>
+                        </div>
+                        <div class="flex items-center gap-[8px]">
+                            <span class="inline-block h-[12px] w-[12px] rounded-full bg-[#A855F7]"></span>
+                            <p class="text-[16px] text-[#1F2937] font-medium">Closed</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- spinner area -->
+                <div id="spinner" class="h-60vh flex justify-center items-center hidden">
+                    <span class="loading loading-ring loading-xl"></span>
+                </div>
+                <!-- issue card area -->
+                <div id="cardContainer" class="card_container p-[24px] grid grid-cols-1 md:grid-cols-4 gap-x-[12px] gap-y-[12px]">
+                    <!-- dynamically card all are here -->
+                    
+                </div>
+            </div>
+        </section>
+        <!-- modal section area -->
+        <section>
+            <!-- Open the modal using ID.showModal() method -->
+            <!-- <button class="btn" onclick="card_modal.showModal()">open modal</button> -->
+            <dialog id="card_modal" class="modal modal-bottom sm:modal-middle">
+                
+            </dialog>
+        </section>
+    </main>
+
+
+
+    <!-- javascript Links -->
+    <script src="js/index.js"></script>
+</body>
+</html>
